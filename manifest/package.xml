@@ -59,6 +59,7 @@
         <name>Flow</name>
     </types>
     <types>
+        <members>FlowRecord-Flow Layout</members>
         <members>Installation__c-Installation Layout</members>
         <members>Panel_Batch__c-Panel Batch Layout</members>
         <name>Layout</name>
