@@ -1746,10 +1746,6 @@
         <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <tabVisibilities>
-        <tab>standard-BillingHub</tab>
-        <visibility>DefaultOn</visibility>
-    </tabVisibilities>
-    <tabVisibilities>
         <tab>standard-BillingMilestonePlan</tab>
         <visibility>DefaultOn</visibility>
     </tabVisibilities>
