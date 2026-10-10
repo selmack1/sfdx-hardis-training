@@ -7,3 +7,13 @@ commandsPostDeploy:
       sfdmuProject: HeliosHandoverRefData
     runOnlyOnceByOrg: true
     context: process-deployment-only
+commandsPreDeploy:
+  - id: 7ac139eb-b547-4d1f-93c1-eff18f5e4e0c
+    label: Exclude Helios Crew from deployment
+    type: remove-packagexml-items
+    command: ""
+    parameters:
+      packageXmlItems:
+        - Profile:Helios Crew
+    runOnlyOnceByOrg: true
+    context: all
