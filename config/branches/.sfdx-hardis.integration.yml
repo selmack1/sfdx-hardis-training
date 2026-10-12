@@ -10,4 +10,5 @@
 targetUsername: test-num7tr26wjte@example.com
 instanceUrl: https://test.salesforce.com
 
-mergeTargets: [uat]
+mergeTargets:
+  - uat
