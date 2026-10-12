@@ -1,7 +1,7 @@
 projectName: HeliosEnergy
 developmentBranch: integration
 productionBranch: main
-orgAuthenticationMode: secretsOnly
+orgAuthenticationMode: encryptedCert
 availableTargetBranches:
   - integration
   - preprod
