@@ -3,6 +3,28 @@
     <apiVersion>64.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <customErrors>
+        <description>Prevents completion when the handover checklist query cannot be evaluated.</description>
+        <name>Handover_Check_Failed</name>
+        <label>Handover Check Failed</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <customErrorMessages>
+            <errorMessage>The handover checklist could not be verified. Try again or contact an administrator.</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <customErrors>
+        <description>Blocks completion while at least one related handover checklist item is not done.</description>
+        <name>Incomplete_Handover_Checklist</name>
+        <label>Incomplete Handover Checklist</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <customErrorMessages>
+            <errorMessage>Complete every handover checklist item before closing this installation.</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <customErrors>
         <description>Refuses to close an installation that was never given an install date.</description>
         <name>Install_Date_Missing</name>
         <label>Install Date Missing</label>
@@ -14,11 +36,37 @@
         </customErrorMessages>
     </customErrors>
     <decisions>
+        <description>Determines whether the query found an incomplete handover item for this installation.</description>
+        <name>Incomplete_Handover_Item_Found</name>
+        <label>Incomplete Handover Item Found</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Checklist complete</defaultConnectorLabel>
+        <rules>
+            <name>Incomplete_Item_Exists</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Incomplete_Handover_Item.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Incomplete_Handover_Checklist</targetReference>
+            </connector>
+            <label>Incomplete item found</label>
+        </rules>
+    </decisions>
+    <decisions>
         <description>Was the installation ever given an install date?</description>
         <name>No_Install_Date</name>
         <label>No Install Date</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Get_Incomplete_Handover_Item</targetReference>
+        </defaultConnector>
         <defaultConnectorLabel>Install date set</defaultConnectorLabel>
         <rules>
             <name>Date_Missing</name>
@@ -36,7 +84,7 @@
             <label>Date missing</label>
         </rules>
     </decisions>
-    <description>An installation cannot be closed without an install date.</description>
+    <description>An installation cannot be closed without an install date or while a related handover checklist item is incomplete.</description>
     <environments>Default</environments>
     <interviewLabel>Installation Close Check {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Installation Close Check</label>
@@ -53,6 +101,38 @@
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Gets one incomplete Handover Item related to the installation being closed.</description>
+        <name>Get_Incomplete_Handover_Item</name>
+        <label>Get Incomplete Handover Item</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Incomplete_Handover_Item_Found</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Handover_Check_Failed</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Installation__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Is_Done__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Handover_Item__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <start>
         <locationX>0</locationX>
         <locationY>0</locationY>

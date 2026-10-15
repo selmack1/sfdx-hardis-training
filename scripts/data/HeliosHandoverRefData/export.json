@@ -1,0 +1,16 @@
+{
+  "sfdxHardisLabel": "Handover checklist reference data",
+  "sfdxHardisDescription": "Reference data workspace for the 10 Handover_Item__c template records used by US-041.",
+  "objects": [
+    {
+      "query": "SELECT External_Id__c,\n       Label__c,\n       Sequence__c,\n       Is_Template__c,\n       Is_Done__c\nFROM Handover_Item__c\nWHERE Is_Template__c = true",
+      "operation": "Upsert",
+      "externalId": "External_Id__c",
+      "master": true,
+      "deleteOldData": false,
+      "useQueryAll": false,
+      "allOrNone": true,
+      "updateWithMockData": false
+    }
+  ]
+}
