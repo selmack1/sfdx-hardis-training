@@ -28,17 +28,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-<<<<<<< HEAD
-=======
-                <field>Warranty_Years__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Supplier__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
->>>>>>> 191f296 (Merge pull request #36 from selmack1/training/mate-us-059-supplier)
                 <field>External_Id__c</field>
             </layoutItems>
         </layoutColumns>
