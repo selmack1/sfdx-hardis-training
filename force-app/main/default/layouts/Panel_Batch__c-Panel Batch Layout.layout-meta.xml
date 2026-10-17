@@ -28,7 +28,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+<<<<<<< HEAD
                 <field>Supplier__c</field>
+=======
+                <field>Warranty_Years__c</field>
+>>>>>>> 5e87e7d (Merge pull request #34 from selmack1/training/mate-us-058-warranty-term)
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
